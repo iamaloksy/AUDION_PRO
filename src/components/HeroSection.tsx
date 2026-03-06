@@ -38,6 +38,15 @@ const HeroSection = () => {
       {/* Content */}
       <br />
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+        <motion.img
+          initial={{ opacity: 0, y: 12, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          src="/favicon.ico"
+          alt="DJ logo"
+          className="w-17 h-17 md:w-17 md:h-17 mx-auto mb-4 rounded-xl red-glow"
+        />
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -53,9 +62,9 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl leading-none tracking-wider mb-6"
         >
-          <span className="text-foreground">Feel The Beat.</span>
+          {/* <span className="text-foreground">Feel The Beat.</span>
           <br />
-          <span className="gold-text">Live The Night.</span>
+          <span className="gold-text">Live The Night.</span> */}
         </motion.h1>
 
         <motion.p

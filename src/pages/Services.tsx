@@ -1,51 +1,74 @@
 import { motion } from "framer-motion";
-import { Headphones, Mic2, PartyPopper, Radio, Speaker, Sparkles } from "lucide-react";
+import {
+  Guitar,
+  Headphones,
+  Mic2,
+  PartyPopper,
+  Speaker,
+  Sparkles,
+  Star,
+  WandSparkles,
+} from "lucide-react";
 import Navbar from "@/components/Navbar";
 import FooterSection from "@/components/FooterSection";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const services = [
   {
+    icon: Headphones,
+    title: "Dj set up",
+    description:
+      "Complete DJ console setup with curated music flow and live mixing for high-energy events.",
+    includes: ["DJ console", "Live mixing", "Music planning"],
+  },
+  {
+    icon: Guitar,
+    title: "live band",
+    description:
+      "Professional live band performances for weddings, private parties, and premium event stages.",
+    includes: ["Live vocals", "Band coordination", "Soundcheck"],
+  },
+  {
+    icon: Star,
+    title: "Celeb artist",
+    description:
+      "Celebrity artist booking and on-stage management for impactful and unforgettable event highlights.",
+    includes: ["Artist booking", "Stage coordination", "Hospitality support"],
+  },
+  {
     icon: PartyPopper,
-    title: "Wedding DJ Experience",
+    title: "Dance troupe",
     description:
-      "From grand entry to final dance, we build a custom soundtrack for every ceremony and celebration.",
-    includes: ["Music curation", "MC coordination", "Dance floor flow"],
-  },
-  {
-    icon: Mic2,
-    title: "Corporate Events",
-    description:
-      "Professional sound, clean transitions, and high-energy sets for product launches, annual nights, and awards.",
-    includes: ["Timeline sync", "Wireless mic support", "Brand-safe playlists"],
-  },
-  {
-    icon: Radio,
-    title: "Club & Lounge Sets",
-    description:
-      "Peak-time mixing crafted for nightlife venues with crowd reading and genre blending in real-time.",
-    includes: ["Open format", "Remix-driven sets", "Venue mood alignment"],
-  },
-  {
-    icon: Speaker,
-    title: "Premium Sound Setup",
-    description:
-      "Crystal-clear coverage with balanced bass and tuned speaker placements for indoor and outdoor events.",
-    includes: ["Venue assessment", "Soundcheck", "Backup gear"],
+      "Skilled dance troupe performances designed to elevate crowd energy and visual appeal.",
+    includes: ["Theme choreography", "Stage routines", "Entry acts"],
   },
   {
     icon: Sparkles,
-    title: "Light & Visual Atmosphere",
+    title: "Couple entry",
     description:
-      "Elevate the room with synchronized lighting moods and visual transitions that match the energy of the night.",
-    includes: ["Ambient scenes", "Drop moments", "Stage accents"],
+      "Premium couple entry concepts with music cues, choreography moments, and timing-perfect execution.",
+    includes: ["Entry concept", "Track editing", "Cue management"],
   },
   {
-    icon: Headphones,
-    title: "Private Party Curation",
+    icon: WandSparkles,
+    title: "Sfx",
     description:
-      "Birthdays, anniversaries, and house parties with personalized playlists and an unforgettable vibe.",
-    includes: ["Genre consultation", "Guest vibe mapping", "Custom highlights"],
+      "Special effects integration including cold pyro moments, confetti, and atmospheric enhancements.",
+    includes: ["Cue sync", "Effect setup", "Safety protocol"],
+  },
+  {
+    icon: Speaker,
+    title: "Equipments",
+    description:
+      "End-to-end event equipment support including audio, lights, mics, and backup technical gear.",
+    includes: ["PA systems", "Wireless mics", "Technical crew"],
+  },
+  {
+    icon: Mic2,
+    title: "International artist",
+    description:
+      "International artist sourcing and complete show management for destination and luxury events.",
+    includes: ["Global talent", "Travel logistics", "On-site management"],
   },
 ];
 

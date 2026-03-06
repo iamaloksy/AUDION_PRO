@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import portfolio1 from "@/assets/portfolio-1.jpg";
 import portfolio2 from "@/assets/portfolio-2.jpg";
 import portfolio3 from "@/assets/portfolio-3.jpg";
@@ -20,7 +20,18 @@ const images = [
 const PortfolioSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
-  const [selected, setSelected] = useState<number | null>(null);
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 4500);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const prev = () => setCurrent((c) => (c - 1 + images.length) % images.length);
+  const next = () => setCurrent((c) => (c + 1) % images.length);
 
   return (
     <section id="portfolio" className="section-padding relative">
@@ -37,71 +48,69 @@ const PortfolioSection = () => {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {images.map((img, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 * i }}
-              className="relative group cursor-pointer overflow-hidden rounded-2xl aspect-square"
-              onClick={() => setSelected(i)}
+        <div className="max-w-5xl mx-auto relative">
+          <AnimatePresence mode="wait">
+            <motion.article
+              key={current}
+              initial={{ opacity: 0, x: 60 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -60 }}
+              transition={{ duration: 0.5 }}
+              className="glass-card p-4 md:p-6"
             >
-              <img
-                src={img.src}
-                alt={img.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-background/0 group-hover:bg-background/70 transition-all duration-500 flex items-center justify-center">
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-center">
-                  <p className="font-display text-2xl gold-text tracking-wider">{img.title}</p>
-                  <p className="text-muted-foreground text-sm uppercase tracking-wider mt-1">
-                    {img.category}
+              <div className="relative overflow-hidden rounded-2xl">
+                <img
+                  src={images[current].src}
+                  alt={images[current].title}
+                  className="w-full h-[340px] sm:h-[420px] md:h-[520px] object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/25 to-transparent" />
+
+                <div className="absolute left-0 right-0 bottom-0 p-6 md:p-8 text-center">
+                  <p className="font-display text-3xl md:text-4xl gold-text tracking-wide">
+                    {images[current].title}
+                  </p>
+                  <p className="text-muted-foreground text-sm uppercase tracking-[0.2em] mt-2">
+                    {images[current].category}
                   </p>
                 </div>
               </div>
-            </motion.div>
-          ))}
+            </motion.article>
+          </AnimatePresence>
+
+          <div className="flex justify-center gap-4 mt-8">
+            <button
+              onClick={prev}
+              className="w-10 h-10 rounded-full border gold-border flex items-center justify-center text-accent hover:gold-glow transition-all duration-300"
+              aria-label="Previous portfolio slide"
+            >
+              <ChevronLeft size={18} />
+            </button>
+
+            <div className="flex items-center gap-2">
+              {images.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrent(i)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    i === current ? "bg-accent w-6" : "bg-muted-foreground/30"
+                  }`}
+                  aria-label={`Go to portfolio slide ${i + 1}`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={next}
+              className="w-10 h-10 rounded-full border gold-border flex items-center justify-center text-accent hover:gold-glow transition-all duration-300"
+              aria-label="Next portfolio slide"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
         </div>
       </div>
-
-      {/* Modal */}
-      <AnimatePresence>
-        {selected !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-background/90 backdrop-blur-md flex items-center justify-center p-4"
-            onClick={() => setSelected(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              className="relative max-w-4xl w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setSelected(null)}
-                className="absolute -top-12 right-0 text-foreground hover:text-accent transition-colors"
-              >
-                <X size={28} />
-              </button>
-              <img
-                src={images[selected].src}
-                alt={images[selected].title}
-                className="w-full rounded-2xl"
-              />
-              <div className="mt-4 text-center">
-                <p className="font-display text-3xl gold-text">{images[selected].title}</p>
-                <p className="text-muted-foreground">{images[selected].category}</p>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 };
