@@ -98,7 +98,7 @@ const HeroSection = () => {
               transition={{ duration: 0.5 }}
               src={audionGif}
               alt="AUDION animation"
-              className="mx-auto mb-4 object-cover w-52 h-52 md:w-72 md:h-72 rounded-[2rem] border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.45)]"
+              className="mx-auto mb-4 object-contain w-72 h-72 md:w-96 md:h-96"
             />
           )}
 
@@ -111,7 +111,7 @@ const HeroSection = () => {
               transition={{ duration: 0.45 }}
               src={logo1}
               alt="AUDION PRO logo"
-              className="mx-auto mb-4 object-contain w-52 h-52 md:w-72 md:h-72"
+              className="mx-auto mb-4 object-contain w-64 h-64 md:w-80 md:h-80 [filter:drop-shadow(0_0_2px_rgba(255,255,255,0.95))_drop-shadow(0_0_10px_rgba(255,255,255,0.75))]"
             />
           )}
         </AnimatePresence>
