@@ -14,7 +14,7 @@ import FooterSection from "@/components/FooterSection";
 import heroBg from "@/assets/hero-bg.jpg";
 import portfolio1 from "@/assets/portfolio-1.jpg";
 import portfolio2 from "@/assets/portfolio-2.jpg";
-import portfolio3 from "@/assets/portfolio-3.jpg";
+import teamcoo from "@/assets/team-coo.jpeg";
 
 const services = [
   {
@@ -83,7 +83,7 @@ const processSteps = [
   {
     title: "3. Team Coordination",
     text: "Behind every performance is a dedicated team ensuring smooth operations, technical precision, and flawless execution throughout the event.",
-    image: portfolio3,
+    image: teamcoo,
     imageAlt: "Team coordination during event",
   },
 ];
