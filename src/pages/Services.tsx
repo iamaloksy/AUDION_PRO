@@ -190,7 +190,7 @@ const Services = () => {
               rel="noopener noreferrer"
               className="inline-block px-10 py-4 rounded-full bg-primary text-primary-foreground font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:scale-105 red-glow"
             >
-              Book A Service
+              Book A Meeting
             </a>
           </div>
         </div>
