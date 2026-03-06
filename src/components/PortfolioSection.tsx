@@ -1,5 +1,5 @@
 import { useRef, useState, type TouchEvent, type WheelEvent } from "react";
-import { AnimatePresence, motion, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import portfolio1 from "@/assets/portfolio-1.jpg";
 import portfolio2 from "@/assets/portfolio-2.jpg";
@@ -112,56 +112,56 @@ const PortfolioSection = () => {
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={current}
-              initial={{ opacity: 0, x: direction * 70, scale: 0.98 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: direction * -70, scale: 0.98 }}
-              transition={{ duration: 0.45, ease: "easeOut" }}
-              className="flex items-start justify-center gap-2 md:gap-4"
-            >
-              {visibleSlides.map((slide) => {
-                const isCenter = slide.offset === 0;
+          <motion.div
+            key={current}
+            initial={{ x: direction * 64 }}
+            animate={{ x: 0 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="flex items-start justify-center"
+          >
+            {visibleSlides.map((slide) => {
+              const isCenter = slide.offset === 0;
+              const sideShiftClass = slide.offset < 0 ? "translate-x-5 md:translate-x-8" : "-translate-x-5 md:-translate-x-8";
 
-                return (
-                  <a
-                    key={`${slide.title}-${slide.idx}`}
-                    href={instagramUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`block shrink-0 ${isCenter ? "basis-[76%] md:basis-[70%]" : "basis-[12%] md:basis-[15%]"}`}
+              return (
+                <a
+                  key={`${slide.title}-${slide.idx}`}
+                  href={instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`block shrink-0 transition-all duration-300 ${
+                    isCenter ? "basis-[78%] md:basis-[72%] z-20" : `basis-[16%] md:basis-[18%] z-10 ${sideShiftClass}`
+                  }`}
+                >
+                  <motion.article
+                    whileHover={{ y: -6 }}
+                    transition={{ duration: 0.2 }}
+                    className={`relative overflow-hidden rounded-2xl glass-card cursor-pointer transition-all duration-300 ${
+                      isCenter
+                        ? "scale-100 border gold-border shadow-2xl"
+                        : "scale-90 md:scale-[0.88] opacity-85"
+                    }`}
                   >
-                    <motion.article
-                      whileHover={{ y: -6 }}
-                      transition={{ duration: 0.2 }}
-                      className={`relative overflow-hidden rounded-2xl glass-card cursor-pointer transition-all duration-300 ${
-                        isCenter
-                          ? "scale-100 z-20 border gold-border shadow-2xl"
-                          : "scale-95 opacity-70 hover:opacity-90"
-                      }`}
-                    >
-                      <img
-                        src={slide.src}
-                        alt={slide.title}
-                        className={`w-full object-cover ${isCenter ? "h-[280px] sm:h-[360px] md:h-[460px]" : "h-[240px] sm:h-[300px] md:h-[400px]"}`}
-                        loading="lazy"
-                      />
-                    </motion.article>
+                    <img
+                      src={slide.src}
+                      alt={slide.title}
+                      className={`w-full object-cover ${isCenter ? "h-[280px] sm:h-[360px] md:h-[460px]" : "h-[240px] sm:h-[300px] md:h-[400px]"}`}
+                      loading="lazy"
+                    />
+                  </motion.article>
 
-                    <div className="pt-3 text-center">
-                      <p className={`font-display tracking-wide ${isCenter ? "text-lg md:text-2xl gold-text" : "text-xs md:text-sm text-foreground/85"}`}>
-                        {slide.title}
-                      </p>
-                      <p className={`uppercase mt-1 ${isCenter ? "text-[10px] md:text-xs text-accent tracking-[0.2em]" : "text-[9px] md:text-[10px] text-muted-foreground tracking-[0.1em]"}`}>
-                        {slide.category}
-                      </p>
-                    </div>
-                  </a>
-                );
-              })}
-            </motion.div>
-          </AnimatePresence>
+                  <div className="pt-3 text-center">
+                    <p className={`font-display tracking-wide ${isCenter ? "text-lg md:text-2xl gold-text" : "text-xs md:text-sm text-foreground/85"}`}>
+                      {slide.title}
+                    </p>
+                    <p className={`uppercase mt-1 ${isCenter ? "text-[10px] md:text-xs text-accent tracking-[0.2em]" : "text-[9px] md:text-[10px] text-muted-foreground tracking-[0.1em]"}`}>
+                      {slide.category}
+                    </p>
+                  </div>
+                </a>
+              );
+            })}
+          </motion.div>
 
           <div className="flex justify-center gap-4 mt-8">
             <button
