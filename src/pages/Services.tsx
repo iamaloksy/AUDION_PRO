@@ -115,7 +115,7 @@ const Services = () => {
             transition={{ duration: 0.75, delay: 0.1 }}
             className="font-display text-5xl sm:text-6xl md:text-7xl tracking-wide"
           >
-            All <span className="gold-text">Services</span>
+            Services <span className="gold-text">We Offer</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

@@ -64,7 +64,7 @@ const Navbar = () => {
               />
             </motion.div>
 
-            <span className="font-display text-xl tracking-wider gold-text">AUDION PRO</span>
+            <span className="company-name-font text-xl gold-text">AUDION PRO</span>
           </a>
 
           {/* Desktop Nav */}
