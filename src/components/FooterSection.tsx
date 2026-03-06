@@ -45,15 +45,15 @@ const FooterSection = () => {
             <div className="space-y-3">
               <div className="flex items-start gap-3 text-muted-foreground text-sm">
                 <MapPin className="w-4 h-4 text-accent mt-0.5 shrink-0" />
-                <span>123 Nightlife Avenue, Music City, MC 10001</span>
+                <span>NA</span>
               </div>
               <div className="flex items-center gap-3 text-muted-foreground text-sm">
                 <Phone className="w-4 h-4 text-accent shrink-0" />
-                <span>+1 (555) 123-4567</span>
+                <span>+91 9988931213</span>
               </div>
               <div className="flex items-center gap-3 text-muted-foreground text-sm">
                 <Mail className="w-4 h-4 text-accent shrink-0" />
-                <span>info@pulseaudio.com</span>
+                <span>Info@audionpro.com</span>
               </div>
             </div>
           </div>
@@ -84,15 +84,15 @@ const FooterSection = () => {
         {/* Bottom */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-muted-foreground text-xs">
-            � {new Date().getFullYear()} AUDION PRO DJ Services. All rights reserved.
+             {new Date().getFullYear()} AUDION PRO DJ Services. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <a href="https://www.instagram.com/audionpro_" className="text-muted-foreground hover:text-accent transition-colors">
               <Instagram size={18} />
             </a>
-            <a href="#" className="text-muted-foreground hover:text-accent transition-colors">
+            {/* <a href="#" className="text-muted-foreground hover:text-accent transition-colors">
               <Facebook size={18} />
-            </a>
+            </a> */}
             <a href="https://youtube.com/@desibeatentertainers?si=9w9P_Sgx--s80QPY" className="text-muted-foreground hover:text-accent transition-colors">
               <Youtube size={18} />
             </a>

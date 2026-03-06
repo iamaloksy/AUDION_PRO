@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const socials = [
   { icon: Instagram, href: "https://www.instagram.com/audionpro_", label: "Instagram" },
-  { icon: Facebook, href: "#", label: "Facebook" },
+  // { icon: Facebook, href: "#", label: "Facebook" },
   { icon: Youtube, href: "https://youtube.com/@desibeatentertainers?si=9w9P_Sgx--s80QPY", label: "YouTube" },
   { icon: MessageCircle, href: "https://wa.me/15551234567?text=Hi%2C%20I%20want%20to%20book%20a%20DJ%20event.", label: "WhatsApp" },
 ];
