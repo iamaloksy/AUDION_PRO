@@ -1,19 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  BriefcaseBusiness,
-  Compass,
-  Home,
-  Images,
-  Info,
-  Menu,
-  MessageSquareQuote,
-  Phone,
-  X,
-} from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import logo1 from "@/assets/logo1.png";
-import logo2 from "@/assets/logo2.png";
 
 const sectionLinks = [
   { label: "Portfolio", href: "#portfolio" },
@@ -27,44 +16,27 @@ const pageLinks = [
  
 ];
 
-const brands = [
-  { name: "AUDION PRO", tagline: "Original", logo: logo1 },
-  { name: "DESI BEAT", tagline: "Evolved", logo: logo2 },
-];
-
 const Navbar = () => {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [brandIndex, setBrandIndex] = useState(0);
   const isHomePage = location.pathname === "/";
   const resolveSectionHref = (href: string) => (isHomePage ? href : `/${href}`);
 
   const mobileItems = [
-    { label: "Home", href: resolveSectionHref("#home"), icon: Home },
-    { label: "Services", to: "/services", icon: BriefcaseBusiness },
-    { label: "Journey", to: "/journey", icon: Compass },
-    { label: "About", href: resolveSectionHref("#about"), icon: Info },
-    { label: "Portfolio", href: resolveSectionHref("#portfolio"), icon: Images },
-    {
-      label: "Testimonials",
-      href: resolveSectionHref("#testimonials"),
-      icon: MessageSquareQuote,
-    },
-    { label: "Contact", href: resolveSectionHref("#contact"), icon: Phone },
+    { label: "Home", href: resolveSectionHref("#home") },
+    { label: "Services", to: "/services" },
+    { label: "Journey", to: "/journey" },
+    { label: "About", href: resolveSectionHref("#about") },
+    { label: "Portfolio", href: resolveSectionHref("#portfolio") },
+    { label: "Testimonials", href: resolveSectionHref("#testimonials") },
+    { label: "Contact", href: resolveSectionHref("#contact") },
   ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBrandIndex((prev) => (prev + 1) % brands.length);
-    }, 3000);
-    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -77,42 +49,22 @@ const Navbar = () => {
         <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-8">
           {/* Logo */}
           <a href={resolveSectionHref("#home")} className="flex items-center gap-3 group">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={brandIndex}
-                initial={{ opacity: 0, scale: 0.9, rotate: -15 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                exit={{ opacity: 0, scale: 0.9, rotate: 15 }}
-                transition={{ duration: 0.35 }}
-                className="h-16 w-16 md:h-16 md:w-16 rounded-full bg-background/30 backdrop-blur-md border border-primary/40 flex items-center justify-center red-glow overflow-hidden transition-all duration-300 group-hover:scale-110"
-                aria-hidden="true"
-              >
-                <img
-                  src={brands[brandIndex]?.logo ?? logo1}
-                  alt=""
-                  className="h-14 w-14 md:h-14 md:w-14 object-cover rounded-full"
-                  draggable={false}
-                />
-              </motion.div>
-            </AnimatePresence>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.35 }}
+              className="h-16 w-16 md:h-16 md:w-16 rounded-full bg-background/30 backdrop-blur-md border border-primary/40 flex items-center justify-center red-glow overflow-hidden transition-all duration-300 group-hover:scale-110"
+              aria-hidden="true"
+            >
+              <img
+                src={logo1}
+                alt="AUDION PRO logo"
+                className="h-14 w-14 md:h-14 md:w-14 object-cover rounded-full"
+                draggable={false}
+              />
+            </motion.div>
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={brandIndex}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.4 }}
-                className="flex flex-col leading-none"
-              >
-                <span className="font-display text-xl tracking-wider gold-text">
-                  {brands[brandIndex].name}
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                  {brands[brandIndex].tagline}
-                </span>
-              </motion.div>
-            </AnimatePresence>
+            <span className="font-display text-xl tracking-wider gold-text">AUDION PRO</span>
           </a>
 
           {/* Desktop Nav */}
@@ -170,61 +122,41 @@ const Navbar = () => {
             className="md:hidden fixed inset-0 z-[200]"
           >
             <div
-              className="absolute inset-0 bg-background/70 backdrop-blur-md"
+              className="absolute inset-0 bg-background/55 backdrop-blur-sm"
               onClick={() => setMobileOpen(false)}
             />
 
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative w-72 h-72">
-                <motion.div
-                  initial={{ scale: 0.92, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.92, opacity: 0 }}
-                  transition={{ duration: 0.18 }}
-                  className="absolute inset-0 rounded-full bg-background/85 backdrop-blur-xl border border-border shadow-2xl"
-                />
-
-                {mobileItems.map((item, i, items) => {
-                  const angle = (i / items.length) * Math.PI * 2 - Math.PI / 2;
-                  const radius = 112;
-                  const x = Math.cos(angle) * radius;
-                  const y = Math.sin(angle) * radius;
-                  const Icon = item.icon;
-
-                  return (
-                    <motion.div
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.22 }}
+              className="absolute top-24 left-4 right-4 rounded-2xl glass-card border gold-border shadow-2xl p-5"
+            >
+              <div className="flex flex-col gap-4">
+                {mobileItems.map((item) => (
+                  "to" in item ? (
+                    <Link
                       key={item.label}
-                      aria-label={item.label}
-                      className="social-icon absolute left-1/2 top-1/2 -ml-6 -mt-6 flex flex-col gap-1"
-                      initial={{ opacity: 0, scale: 0.7, x: 0, y: 0 }}
-                      animate={{ opacity: 1, scale: 1, x, y }}
-                      exit={{ opacity: 0, scale: 0.7, x: 0, y: 0 }}
-                      transition={{ type: "spring", stiffness: 520, damping: 32, delay: i * 0.03 }}
-                      title={item.label}
+                      to={item.to}
+                      onClick={() => setMobileOpen(false)}
+                      className="px-2 py-2 rounded-lg text-sm font-semibold tracking-wide uppercase text-foreground/90 hover:text-accent hover:bg-background/30 transition-colors duration-300"
                     >
-                      {"to" in item ? (
-                        <Link to={item.to} onClick={() => setMobileOpen(false)} aria-label={item.label}>
-                          <Icon size={20} />
-                        </Link>
-                      ) : (
-                        <a href={item.href} onClick={() => setMobileOpen(false)} aria-label={item.label}>
-                          <Icon size={20} />
-                        </a>
-                      )}
-                    </motion.div>
-                  );
-                })}
-
-                <button
-                  type="button"
-                  onClick={() => setMobileOpen(false)}
-                  aria-label="Close menu"
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg red-glow transition-transform active:scale-95"
-                >
-                  <X size={24} />
-                </button>
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="px-2 py-2 rounded-lg text-sm font-semibold tracking-wide uppercase text-foreground/90 hover:text-accent hover:bg-background/30 transition-colors duration-300"
+                    >
+                      {item.label}
+                    </a>
+                  )
+                ))}
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

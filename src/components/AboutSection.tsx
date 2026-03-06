@@ -1,5 +1,80 @@
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import portfolio1 from "@/assets/portfolio-1.jpg";
+import portfolio2 from "@/assets/portfolio-2.jpg";
+
+const aboutMoments = [
+  {
+    title: "Audion Pro",
+    text: "Audion Pro is a professional DJ and event entertainment brand dedicated to delivering exceptional musical experiences. With premium sound systems, high-energy performances, and a deep passion for unforgettable celebrations, we bring a refined and dynamic atmosphere to every event we perform.",
+    image: portfolio1,
+    imageAlt: "Audion Pro live event performance",
+    reverse: false,
+  },
+  {
+    title: "More Than Just DJs",
+    text: "More than just DJs - we create the sound of unforgettable celebrations. Born from our journey as Desi Beat Entertainers, we combine years of experience, top-quality equipment, and a deep understanding of the crowd to create moments people remember long after the music stops.",
+    image: portfolio2,
+    imageAlt: "Desi Beat Entertainers journey moment",
+    reverse: true,
+  },
+];
+
+const MobileStoryCard = ({
+  title,
+  text,
+  image,
+  imageAlt,
+  index,
+}: {
+  title: string;
+  text: string;
+  image: string;
+  imageAlt: string;
+  index: number;
+}) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Stage 1: image visible. Stage 2: image fades. Stage 3: content appears.
+  const imageOpacity = useTransform(scrollYProgress, [0, 0.38, 0.62, 1], [1, 1, 0.35, 0.25]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.58, 0.78, 1], [0, 0, 1, 1]);
+  const contentY = useTransform(scrollYProgress, [0, 0.58, 0.78, 1], [28, 28, 0, 0]);
+  const contentBgOpacity = useTransform(scrollYProgress, [0, 0.55, 0.78, 1], [0.2, 0.2, 0.88, 0.95]);
+
+  return (
+    <section ref={sectionRef} className="h-[145vh]">
+      <div className="sticky top-20">
+        <article className="relative overflow-hidden rounded-2xl glass-card h-[75vh] min-h-[420px]">
+          <motion.img
+            src={image}
+            alt={imageAlt}
+            className="w-full h-full object-cover"
+            loading="lazy"
+            style={{ opacity: imageOpacity }}
+          />
+
+          <motion.div
+            style={{ opacity: contentBgOpacity }}
+            className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-background/55"
+          />
+
+          <motion.div
+            style={{ opacity: contentOpacity, y: contentY }}
+            className="absolute inset-x-0 bottom-0 p-5"
+          >
+            <p className="text-accent uppercase tracking-[0.2em] text-[10px] mb-2">Story Part {index + 1}</p>
+            <h3 className="font-display text-2xl tracking-wide mb-2">{title}</h3>
+            <p className="text-muted-foreground text-[13px] leading-relaxed">{text}</p>
+          </motion.div>
+        </article>
+      </div>
+    </section>
+  );
+};
 
 const AboutSection = () => {
   const ref = useRef(null);
@@ -20,20 +95,102 @@ const AboutSection = () => {
           </h2>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="glass-card p-8 md:p-12 max-w-4xl mx-auto mb-16"
-        >
-          <p className="text-muted-foreground text-base md:text-lg leading-relaxed text-center">
-            We are a premier DJ service provider dedicated to creating extraordinary musical
-            experiences. From intimate weddings to massive festival stages, our team of
-            professional DJs brings the perfect blend of energy, artistry, and state-of-the-art
-            sound to every event. With over a decade of experience, we don't just play music —
-            we craft unforgettable moments that keep your guests dancing all night long.
-          </p>
-        </motion.div>
+        <div className="md:hidden space-y-8 max-w-lg mx-auto">
+          {aboutMoments.map((moment, i) => (
+            <MobileStoryCard
+              key={moment.title}
+              title={moment.title}
+              text={moment.text}
+              image={moment.image}
+              imageAlt={moment.imageAlt}
+              index={i}
+            />
+          ))}
+        </div>
+
+        <div className="hidden md:block space-y-14 max-w-6xl mx-auto">
+          {aboutMoments.map((moment, i) => {
+            const imageFromLeft = !moment.reverse;
+            const imageAnimation = { opacity: 0, x: imageFromLeft ? -50 : 50 };
+            const contentAnimation = { opacity: 0, x: imageFromLeft ? 50 : -50 };
+
+            return (
+              <div key={moment.title} className="grid grid-cols-2 gap-10 items-center">
+                {moment.reverse ? (
+                  <>
+                    <motion.article
+                      initial={contentAnimation}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 0.65, delay: 0.1 }}
+                      className="glass-card p-8"
+                    >
+                      <p className="text-accent uppercase tracking-[0.25em] text-xs mb-3">
+                        Story Part {i + 1}
+                      </p>
+                      <h3 className="font-display text-4xl tracking-wide mb-4">
+                        {moment.title}
+                      </h3>
+                      <p className="text-muted-foreground text-base leading-relaxed">
+                        {moment.text}
+                      </p>
+                    </motion.article>
+
+                    <motion.div
+                      initial={imageAnimation}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 0.65 }}
+                      className="overflow-hidden rounded-2xl glass-card"
+                    >
+                      <img
+                        src={moment.image}
+                        alt={moment.imageAlt}
+                        className="w-full h-[340px] object-cover"
+                        loading="lazy"
+                      />
+                    </motion.div>
+                  </>
+                ) : (
+                  <>
+                    <motion.div
+                      initial={imageAnimation}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 0.65 }}
+                      className="overflow-hidden rounded-2xl glass-card"
+                    >
+                      <img
+                        src={moment.image}
+                        alt={moment.imageAlt}
+                        className="w-full h-[340px] object-cover"
+                        loading="lazy"
+                      />
+                    </motion.div>
+
+                    <motion.article
+                      initial={contentAnimation}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 0.65, delay: 0.1 }}
+                      className="glass-card p-8"
+                    >
+                      <p className="text-accent uppercase tracking-[0.25em] text-xs mb-3">
+                        Story Part {i + 1}
+                      </p>
+                      <h3 className="font-display text-4xl tracking-wide mb-4">
+                        {moment.title}
+                      </h3>
+                      <p className="text-muted-foreground text-base leading-relaxed">
+                        {moment.text}
+                      </p>
+                    </motion.article>
+                  </>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
