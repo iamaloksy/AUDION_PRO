@@ -1,37 +1,24 @@
-import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import heroBg from "@/assets/hero-bg.jpeg";
+import heroBg from "@/assets/hero-bg.jpg";
 import logo1 from "@/assets/logo1.png";
-import logo2 from "@/assets/logo2.png";
-
-type HeroPhase = "desi" | "audion";
 
 const HeroSection = () => {
-  const [phase, setPhase] = useState<HeroPhase>("desi");
-  const showAudionPro = phase === "audion";
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setPhase("audion");
-    }, 1800);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const showAudionPro = true;
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       <motion.div
         initial={{ y: "24%", opacity: 0 }}
-        animate={showAudionPro ? { y: "0%", opacity: 1 } : { y: "24%", opacity: 0 }}
-        transition={{ duration: 1.6, delay: showAudionPro ? 0.15 : 0, ease: "easeOut" }}
+        animate={{ y: "0%", opacity: 1 }}
+        transition={{ duration: 1.6, delay: 0.15, ease: "easeOut" }}
         className="absolute inset-0 bg-cover bg-no-repeat"
         style={{ backgroundImage: `url(${heroBg})`, backgroundPosition: "center 70%" }}
       />
 
       <motion.div
         initial={{ y: "24%", opacity: 0 }}
-        animate={showAudionPro ? { y: "0%", opacity: 1 } : { y: "24%", opacity: 0 }}
-        transition={{ duration: 1.6, delay: showAudionPro ? 0.15 : 0, ease: "easeOut" }}
+        animate={{ y: "0%", opacity: 1 }}
+        transition={{ duration: 1.6, delay: 0.15, ease: "easeOut" }}
         className="absolute inset-0 hero-overlay"
       />
 
@@ -61,33 +48,15 @@ const HeroSection = () => {
       {/* Content */}
       <br />
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        <AnimatePresence mode="wait">
-          {phase === "desi" && (
-            <motion.img
-              key="desi-beat"
-              initial={{ opacity: 0, y: 12, scale: 0.92 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.92 }}
-              transition={{ duration: 0.45 }}
-              src={logo2}
-              alt="DESI BEAT logo"
-              className="mx-auto mb-4 object-contain w-44 h-44 md:w-64 md:h-64"
-            />
-          )}
-
-          {phase === "audion" && (
-            <motion.img
-              key="audion-pro"
-              initial={{ opacity: 0, y: 12, scale: 0.92 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.92 }}
-              transition={{ duration: 0.45 }}
-              src={logo1}
-              alt="AUDION PRO logo"
-              className="mx-auto mb-4 object-contain w-64 h-64 md:w-80 md:h-80 [filter:drop-shadow(0_0_2px_rgba(255,255,255,0.95))_drop-shadow(0_0_10px_rgba(255,255,255,0.75))]"
-            />
-          )}
-        </AnimatePresence>
+        <motion.img
+          key="audion-pro"
+          initial={{ opacity: 0, y: 12, scale: 0.92 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.45 }}
+          src={logo1}
+          alt="AUDION PRO logo"
+          className="mx-auto mb-4 object-contain w-64 h-64 md:w-80 md:h-80 [filter:drop-shadow(0_0_2px_rgba(255,255,255,0.95))_drop-shadow(0_0_10px_rgba(255,255,255,0.75))]"
+        />
 
         <AnimatePresence>
           {showAudionPro && (
