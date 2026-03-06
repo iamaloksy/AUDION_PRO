@@ -12,78 +12,79 @@ import {
 import Navbar from "@/components/Navbar";
 import FooterSection from "@/components/FooterSection";
 import heroBg from "@/assets/hero-bg.jpg";
+import portfolio1 from "@/assets/portfolio-1.jpg";
+import portfolio2 from "@/assets/portfolio-2.jpg";
+import portfolio3 from "@/assets/portfolio-3.jpg";
 
 const services = [
   {
     icon: Headphones,
-    title: "Dj set up",
+    title: "DJ Setup",
     description:
-      "Complete DJ console setup with curated music flow and live mixing for high-energy events.",
-    includes: ["DJ console", "Live mixing", "Music planning"],
+      "Professional DJ setups with powerful sound and seamless mixing to keep the energy alive throughout your event.",
   },
   {
     icon: Guitar,
-    title: "live band",
+    title: "Live Band",
     description:
-      "Professional live band performances for weddings, private parties, and premium event stages.",
-    includes: ["Live vocals", "Band coordination", "Soundcheck"],
+      "Experience the magic of live music with talented bands that bring soulful performances and vibrant energy to every celebration.",
   },
   {
     icon: Star,
-    title: "Celeb artist",
+    title: "Celebrity Artist",
     description:
-      "Celebrity artist booking and on-stage management for impactful and unforgettable event highlights.",
-    includes: ["Artist booking", "Stage coordination", "Hospitality support"],
+      "Make your event unforgettable with appearances and performances by renowned celebrity artists.",
   },
   {
     icon: PartyPopper,
-    title: "Dance troupe",
+    title: "Dance Troupe",
     description:
-      "Skilled dance troupe performances designed to elevate crowd energy and visual appeal.",
-    includes: ["Theme choreography", "Stage routines", "Entry acts"],
+      "High-energy dance performances by professional troupes that add excitement and entertainment to your event.",
   },
   {
     icon: Sparkles,
-    title: "Couple entry",
+    title: "Couple Entry",
     description:
-      "Premium couple entry concepts with music cues, choreography moments, and timing-perfect execution.",
-    includes: ["Entry concept", "Track editing", "Cue management"],
+      "Grand and customized couple entries designed to create a magical and memorable moment.",
   },
   {
     icon: WandSparkles,
-    title: "Sfx",
+    title: "SFX (Special Effects)",
     description:
-      "Special effects integration including cold pyro moments, confetti, and atmospheric enhancements.",
-    includes: ["Cue sync", "Effect setup", "Safety protocol"],
+      "Enhance the atmosphere with stunning special effects including cold pyros, confetti, CO2 blasts, and more.",
   },
   {
     icon: Speaker,
-    title: "Equipments",
+    title: "Equipment",
     description:
-      "End-to-end event equipment support including audio, lights, mics, and backup technical gear.",
-    includes: ["PA systems", "Wireless mics", "Technical crew"],
+      "Top-quality sound, lighting, and event equipment ensuring a flawless and professional experience.",
   },
   {
     icon: Mic2,
-    title: "International artist",
+    title: "International Artist",
     description:
-      "International artist sourcing and complete show management for destination and luxury events.",
-    includes: ["Global talent", "Travel logistics", "On-site management"],
+      "Bring global talent to your celebration with exclusive performances by internationally recognized artists.",
   },
 ];
 
 const processSteps = [
   {
-    title: "1. Discovery Call",
-    text: "We discuss your event goals, audience, venue, and the exact vibe you want to create.",
+    title: "1. Music Blueprint",
+    text: "Our team designs a tailored music and performance plan including key moments, genre flow, and special requests.",
+    image: portfolio1,
+    imageAlt: "Music blueprint planning",
   },
   {
-    title: "2. Music Blueprint",
-    text: "You get a tailored set structure with key moments, genre priorities, and must-play requests.",
+    title: "2. Show Day Execution",
+    text: "From setup to live performance, our experienced team manages every detail so you can simply enjoy the celebration.",
+    image: portfolio2,
+    imageAlt: "Show day execution",
   },
   {
-    title: "3. Show Day Execution",
-    text: "Our team handles setup, live performance, and coordination so you can enjoy the experience.",
+    title: "3. Team Coordination",
+    text: "Behind every performance is a dedicated team ensuring smooth operations, technical precision, and flawless execution throughout the event.",
+    image: portfolio3,
+    imageAlt: "Team coordination during event",
   },
 ];
 
@@ -122,8 +123,7 @@ const Services = () => {
             transition={{ duration: 0.6, delay: 0.25 }}
             className="text-muted-foreground max-w-3xl mx-auto mt-6"
           >
-            End-to-end DJ and event audio services built for weddings, clubs, festivals, corporate
-            events, and private celebrations.
+            Premium DJ and event entertainment services designed for weddings, clubs, festivals, corporate events, and unforgettable private celebrations.
           </motion.p>
         </div>
       </section>
@@ -144,14 +144,7 @@ const Services = () => {
                   <service.icon className="w-5 h-5 text-primary" />
                 </div>
                 <h2 className="font-display text-2xl tracking-wide text-foreground mb-3">{service.title}</h2>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-5">{service.description}</p>
-                <ul className="space-y-2">
-                  {service.includes.map((item) => (
-                    <li key={item} className="text-sm text-accent tracking-wide uppercase">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                <p className="text-muted-foreground text-sm leading-relaxed">{service.description}</p>
               </motion.article>
             ))}
           </div>
@@ -177,6 +170,14 @@ const Services = () => {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="glass-card p-6"
               >
+                <div className="overflow-hidden rounded-xl mb-4">
+                  <img
+                    src={step.image}
+                    alt={step.imageAlt}
+                    className="w-full h-40 object-cover"
+                    loading="lazy"
+                  />
+                </div>
                 <h3 className="font-display text-2xl gold-text mb-3">{step.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{step.text}</p>
               </motion.div>
@@ -190,7 +191,7 @@ const Services = () => {
               rel="noopener noreferrer"
               className="inline-block px-10 py-4 rounded-full bg-primary text-primary-foreground font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:scale-105 red-glow"
             >
-              Book A Meeting
+              Book a Meeting
             </a>
           </div>
         </div>

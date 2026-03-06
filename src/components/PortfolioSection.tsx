@@ -113,11 +113,14 @@ const PortfolioSection = () => {
               const abs = Math.abs(offset);
               const isCenter = offset === 0;
 
-              const x = offset * 58;
-              const y = abs * 34;
-              const rotate = offset * 8;
-              const scale = isCenter ? 1 : abs === 1 ? 0.82 : 0.6;
-              const opacity = abs <= 1 ? 1 : 0;
+              if (abs > 1) {
+                return null;
+              }
+
+              const x = offset * 62;
+              const y = 0;
+              const scale = isCenter ? 1 : 0.8;
+              const opacity = 1;
               const zIndex = isCenter ? 30 : abs === 1 ? 20 : 0;
 
               return (
@@ -127,10 +130,10 @@ const PortfolioSection = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="absolute left-1/2 top-0 w-[72%] md:w-[64%] -translate-x-1/2"
-                  animate={{ x: `${x}%`, y, rotate, scale, opacity, zIndex }}
+                  animate={{ x: `${x}%`, y, scale, opacity, zIndex }}
                   transition={{ type: "spring", stiffness: 165, damping: 22, mass: 0.78 }}
                   whileHover={isCenter ? { y: -6 } : undefined}
-                  style={{ pointerEvents: abs <= 1 ? "auto" : "none" }}
+                  style={{ pointerEvents: "auto" }}
                 >
                   <article
                     className={`relative overflow-hidden rounded-2xl glass-card cursor-pointer transition-all duration-300 ${
