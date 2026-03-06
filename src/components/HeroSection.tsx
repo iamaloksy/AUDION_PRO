@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroBg from "@/assets/hero-bg.jpeg";
 import logo1 from "@/assets/logo1.png";
 import logo2 from "@/assets/logo2.png";
-import audionGif from "@/assets/audion.gif";
 
-type HeroPhase = "desi" | "gif" | "audion";
+type HeroPhase = "desi" | "audion";
 
 const HeroSection = () => {
   const [phase, setPhase] = useState<HeroPhase>("desi");
@@ -13,24 +12,11 @@ const HeroSection = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setPhase("gif");
+      setPhase("audion");
     }, 1800);
 
     return () => clearTimeout(timer);
   }, []);
-
-  useEffect(() => {
-    if (phase !== "gif") {
-      return;
-    }
-
-    // Keep the same media timeline length before transitioning to AUDION PRO.
-    const safetyTimer = setTimeout(() => {
-      setPhase("audion");
-    }, 7000);
-
-    return () => clearTimeout(safetyTimer);
-  }, [phase]);
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
@@ -38,8 +24,8 @@ const HeroSection = () => {
         initial={{ y: "24%", opacity: 0 }}
         animate={showAudionPro ? { y: "0%", opacity: 1 } : { y: "24%", opacity: 0 }}
         transition={{ duration: 1.6, delay: showAudionPro ? 0.15 : 0, ease: "easeOut" }}
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroBg})` }}
+        className="absolute inset-0 bg-cover bg-no-repeat"
+        style={{ backgroundImage: `url(${heroBg})`, backgroundPosition: "center 70%" }}
       />
 
       <motion.div
@@ -86,19 +72,6 @@ const HeroSection = () => {
               src={logo2}
               alt="DESI BEAT logo"
               className="mx-auto mb-4 object-contain w-44 h-44 md:w-64 md:h-64"
-            />
-          )}
-
-          {phase === "gif" && (
-            <motion.img
-              key="audion-gif"
-              initial={{ opacity: 0, y: 12, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.96 }}
-              transition={{ duration: 0.5 }}
-              src={audionGif}
-              alt="AUDION animation"
-              className="mx-auto mb-4 object-contain w-72 h-72 md:w-96 md:h-96"
             />
           )}
 
