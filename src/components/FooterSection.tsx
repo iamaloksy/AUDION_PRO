@@ -27,7 +27,12 @@ const FooterSection = () => {
                   draggable={false}
                 />
               </div>
-              <span className="company-name-font text-2xl gold-text">AUDION PRO</span>
+              <div className="flex flex-col leading-none">
+                <span className="company-name-font text-2xl gold-text">AUDION PRO</span>
+                <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground mt-1">
+                  EXPERIENCE EVENTS ELEVATED
+                </span>
+              </div>
             </div>
           </div>
 

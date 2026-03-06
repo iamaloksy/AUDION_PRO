@@ -105,17 +105,17 @@ const Services = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-accent uppercase tracking-[0.3em] text-sm md:text-base mb-4"
+            className="font-display text-5xl sm:text-6xl md:text-7xl tracking-wide "
           >
-            What We Offer
+            Services 
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.1 }}
-            className="font-display text-5xl sm:text-6xl md:text-7xl tracking-wide"
+            className="text-accent uppercase tracking-[0.3em] text-sm md:text-base mb-4"
           >
-            Services <span className="gold-text">We Offer</span>
+            We Offer <span className="gold-text"></span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import logo1 from "@/assets/logo1.png";
 
 const sectionLinks = [
   { label: "Portfolio", href: "#portfolio" },
@@ -57,14 +56,19 @@ const Navbar = () => {
               aria-hidden="true"
             >
               <img
-                src={logo1}
+                src="/favicon.ico"
                 alt="AUDION PRO logo"
                 className="h-14 w-14 md:h-14 md:w-14 object-cover rounded-full"
                 draggable={false}
               />
             </motion.div>
 
-            <span className="company-name-font text-xl gold-text">AUDION PRO</span>
+            <div className="flex flex-col leading-none">
+              <span className="company-name-font text-xl gold-text">AUDION PRO</span>
+              <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground mt-1">
+                EXPERIENCE EVENTS ELEVATED
+              </span>
+            </div>
           </a>
 
           {/* Desktop Nav */}

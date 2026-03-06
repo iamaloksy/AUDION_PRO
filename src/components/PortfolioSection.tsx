@@ -136,29 +136,26 @@ const PortfolioSection = () => {
                   style={{ pointerEvents: "auto" }}
                 >
                   <article
-                    className={`relative overflow-hidden rounded-2xl glass-card cursor-pointer transition-all duration-300 ${
+                    className={`relative rounded-2xl glass-card cursor-pointer transition-all duration-300 ${
                       isCenter ? "border gold-border shadow-2xl" : "opacity-90"
                     }`}
                   >
                     <img
                       src={slide.src}
                       alt={slide.title}
-                      className="w-full object-cover h-[280px] sm:h-[360px] md:h-[460px]"
+                      className="w-full object-cover h-[250px] sm:h-[320px] md:h-[410px] rounded-t-2xl"
                       loading="lazy"
                     />
+
+                    <div className="px-4 py-3 text-center">
+                      <p className={`font-display tracking-wide ${isCenter ? "text-base md:text-xl gold-text" : "text-xs md:text-sm text-foreground"}`}>
+                        {slide.title}
+                      </p>
+                    </div>
                   </article>
                 </motion.a>
               );
             })}
-          </div>
-
-          <div className="pt-4 text-center">
-            <p className="font-display tracking-wide text-lg md:text-2xl gold-text">
-              {images[current].title}
-            </p>
-            <p className="uppercase mt-1 text-[10px] md:text-xs text-accent tracking-[0.2em]">
-              {images[current].category}
-            </p>
           </div>
 
           <div className="flex justify-center gap-4 mt-8">
