@@ -93,7 +93,7 @@ const FooterSection = () => {
             <a href="#" className="text-muted-foreground hover:text-accent transition-colors">
               <Facebook size={18} />
             </a>
-            <a href="#" className="text-muted-foreground hover:text-accent transition-colors">
+            <a href="https://youtube.com/@desibeatentertainers?si=9w9P_Sgx--s80QPY" className="text-muted-foreground hover:text-accent transition-colors">
               <Youtube size={18} />
             </a>
           </div>
