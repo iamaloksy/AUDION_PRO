@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type TouchEvent, type WheelEvent } from "react";
 import { motion, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import portfolio1 from "@/assets/portfolio-1.jpg";
@@ -25,6 +25,8 @@ const getWrappedIndex = (index: number, length: number) => {
 
 const PortfolioSection = () => {
   const ref = useRef(null);
+  const touchStartXRef = useRef<number | null>(null);
+  const wheelLockUntilRef = useRef(0);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const [current, setCurrent] = useState(0);
 
@@ -38,6 +40,47 @@ const PortfolioSection = () => {
 
   const prev = () => setCurrent((c) => (c - 1 + images.length) % images.length);
   const next = () => setCurrent((c) => (c + 1) % images.length);
+
+  const handleWheel = (e: WheelEvent<HTMLDivElement>) => {
+    const now = Date.now();
+    if (now < wheelLockUntilRef.current) {
+      return;
+    }
+
+    if (Math.abs(e.deltaY) < 8) {
+      return;
+    }
+
+    wheelLockUntilRef.current = now + 420;
+    if (e.deltaY > 0) {
+      next();
+    } else {
+      prev();
+    }
+  };
+
+  const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
+    touchStartXRef.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: TouchEvent<HTMLDivElement>) => {
+    if (touchStartXRef.current === null) {
+      return;
+    }
+
+    const deltaX = e.changedTouches[0].clientX - touchStartXRef.current;
+    touchStartXRef.current = null;
+
+    if (Math.abs(deltaX) < 45) {
+      return;
+    }
+
+    if (deltaX < 0) {
+      next();
+    } else {
+      prev();
+    }
+  };
 
   const visibleSlides = [-1, 0, 1].map((offset) => {
     const idx = getWrappedIndex(current + offset, images.length);
@@ -63,7 +106,12 @@ const PortfolioSection = () => {
           </h2>
         </motion.div>
 
-        <div className="max-w-6xl mx-auto relative overflow-hidden" onWheel={(e) => (e.deltaY > 0 ? next() : prev())}>
+        <div
+          className="max-w-6xl mx-auto relative overflow-hidden"
+          onWheel={handleWheel}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <motion.div
             key={current}
             initial={{ opacity: 0, y: 20 }}
