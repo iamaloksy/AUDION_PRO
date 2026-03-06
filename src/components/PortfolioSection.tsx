@@ -23,21 +23,25 @@ const getWrappedIndex = (index: number, length: number) => {
   return (index + length) % length;
 };
 
+const getRelativeOffset = (index: number, current: number, length: number) => {
+  let offset = index - current;
+  if (offset > length / 2) offset -= length;
+  if (offset < -length / 2) offset += length;
+  return offset;
+};
+
 const PortfolioSection = () => {
   const ref = useRef(null);
   const touchStartXRef = useRef<number | null>(null);
   const wheelLockUntilRef = useRef(0);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(1);
 
   const prev = () => {
-    setDirection(-1);
     setCurrent((c) => (c - 1 + images.length) % images.length);
   };
 
   const next = () => {
-    setDirection(1);
     setCurrent((c) => (c + 1) % images.length);
   };
 
@@ -82,15 +86,6 @@ const PortfolioSection = () => {
     }
   };
 
-  const visibleSlides = [-1, 0, 1].map((offset) => {
-    const idx = getWrappedIndex(current + offset, images.length);
-    return {
-      ...images[idx],
-      idx,
-      offset,
-    };
-  });
-
   return (
     <section id="portfolio" className="section-padding relative">
       <div className="container mx-auto" ref={ref}>
@@ -102,7 +97,7 @@ const PortfolioSection = () => {
         >
           <p className="text-accent uppercase tracking-[0.3em] text-sm mb-3">Our Work</p>
           <h2 className="font-display text-4xl md:text-6xl tracking-wide text-foreground">
-            Port<span className="gold-text">folio</span>
+            Have a look <span className="gold-text">at our work</span>
           </h2>
         </motion.div>
 
@@ -112,56 +107,56 @@ const PortfolioSection = () => {
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <motion.div
-            key={current}
-            initial={{ x: direction * 64 }}
-            animate={{ x: 0 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className="flex items-start justify-center"
-          >
-            {visibleSlides.map((slide) => {
-              const isCenter = slide.offset === 0;
-              const sideShiftClass = slide.offset < 0 ? "translate-x-5 md:translate-x-8" : "-translate-x-5 md:-translate-x-8";
+          <div className="relative h-[320px] sm:h-[400px] md:h-[500px]">
+            {images.map((slide, index) => {
+              const offset = getRelativeOffset(index, current, images.length);
+              const abs = Math.abs(offset);
+              const isCenter = offset === 0;
+
+              const x = offset * 58;
+              const y = abs * 34;
+              const rotate = offset * 8;
+              const scale = isCenter ? 1 : abs === 1 ? 0.82 : 0.6;
+              const opacity = abs <= 1 ? 1 : 0;
+              const zIndex = isCenter ? 30 : abs === 1 ? 20 : 0;
 
               return (
-                <a
-                  key={`${slide.title}-${slide.idx}`}
+                <motion.a
+                  key={slide.title}
                   href={instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`block shrink-0 transition-all duration-300 ${
-                    isCenter ? "basis-[78%] md:basis-[72%] z-20" : `basis-[16%] md:basis-[18%] z-10 ${sideShiftClass}`
-                  }`}
+                  className="absolute left-1/2 top-0 w-[72%] md:w-[64%] -translate-x-1/2"
+                  animate={{ x: `${x}%`, y, rotate, scale, opacity, zIndex }}
+                  transition={{ type: "spring", stiffness: 165, damping: 22, mass: 0.78 }}
+                  whileHover={isCenter ? { y: -6 } : undefined}
+                  style={{ pointerEvents: abs <= 1 ? "auto" : "none" }}
                 >
-                  <motion.article
-                    whileHover={{ y: -6 }}
-                    transition={{ duration: 0.2 }}
+                  <article
                     className={`relative overflow-hidden rounded-2xl glass-card cursor-pointer transition-all duration-300 ${
-                      isCenter
-                        ? "scale-100 border gold-border shadow-2xl"
-                        : "scale-90 md:scale-[0.88] opacity-85"
+                      isCenter ? "border gold-border shadow-2xl" : "opacity-90"
                     }`}
                   >
                     <img
                       src={slide.src}
                       alt={slide.title}
-                      className={`w-full object-cover ${isCenter ? "h-[280px] sm:h-[360px] md:h-[460px]" : "h-[240px] sm:h-[300px] md:h-[400px]"}`}
+                      className="w-full object-cover h-[280px] sm:h-[360px] md:h-[460px]"
                       loading="lazy"
                     />
-                  </motion.article>
-
-                  <div className="pt-3 text-center">
-                    <p className={`font-display tracking-wide ${isCenter ? "text-lg md:text-2xl gold-text" : "text-xs md:text-sm text-foreground/85"}`}>
-                      {slide.title}
-                    </p>
-                    <p className={`uppercase mt-1 ${isCenter ? "text-[10px] md:text-xs text-accent tracking-[0.2em]" : "text-[9px] md:text-[10px] text-muted-foreground tracking-[0.1em]"}`}>
-                      {slide.category}
-                    </p>
-                  </div>
-                </a>
+                  </article>
+                </motion.a>
               );
             })}
-          </motion.div>
+          </div>
+
+          <div className="pt-4 text-center">
+            <p className="font-display tracking-wide text-lg md:text-2xl gold-text">
+              {images[current].title}
+            </p>
+            <p className="uppercase mt-1 text-[10px] md:text-xs text-accent tracking-[0.2em]">
+              {images[current].category}
+            </p>
+          </div>
 
           <div className="flex justify-center gap-4 mt-8">
             <button
@@ -178,7 +173,6 @@ const PortfolioSection = () => {
                   key={i}
                   onClick={() => {
                     if (i === current) return;
-                    setDirection(i > current ? 1 : -1);
                     setCurrent(i);
                   }}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
