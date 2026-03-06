@@ -155,7 +155,7 @@ const Services = () => {
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
           <div className="text-center mb-12">
             <p className="text-accent uppercase tracking-[0.3em] text-sm mb-3">How We Work</p>
-            <h2 className="font-display text-4xl md:text-5xl tracking-wide">
+            <h2 className="section-heading-font text-4xl md:text-5xl tracking-wide">
               From Plan To <span className="gold-text">Performance</span>
             </h2>
           </div>

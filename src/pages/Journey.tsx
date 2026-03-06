@@ -81,17 +81,17 @@ const Journey = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-accent uppercase tracking-[0.3em] text-sm md:text-base mb-4"
+            className="font-display text-5xl sm:text-5xl md:text-5xl tracking-wide "
           >
-            About Our Journey
+             Work, Story & Vision About Our Journey
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.1 }}
-            className="font-display text-5xl sm:text-6xl md:text-7xl tracking-wide"
+            className="text-accent uppercase tracking-[0.3em] text-sm md:text-base mb-4"
           >
-            Work, Story & <span className="gold-text">Vision</span>
+            About Our Journey <span className="gold-text"></span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -111,7 +111,7 @@ const Journey = () => {
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center mb-12">
             <p className="text-accent uppercase tracking-[0.3em] text-sm mb-3">Work Photos</p>
-            <h2 className="font-display text-4xl md:text-5xl tracking-wide">
+            <h2 className="section-heading-font text-4xl md:text-5xl tracking-wide">
               Moments Behind The <span className="gold-text">Music</span>
             </h2>
           </div>
@@ -137,7 +137,7 @@ const Journey = () => {
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
           <div className="text-center mb-10">
             <p className="text-accent uppercase tracking-[0.3em] text-sm mb-3">Written Story</p>
-            <h2 className="font-display text-4xl md:text-5xl tracking-wide">
+            <h2 className="section-heading-font text-4xl md:text-5xl tracking-wide">
               Milestones On The <span className="gold-text">Road</span>
             </h2>
           </div>
@@ -165,7 +165,7 @@ const Journey = () => {
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
           <div className="text-center mb-10">
             <p className="text-accent uppercase tracking-[0.3em] text-sm mb-3">What Drives Us</p>
-            <h2 className="font-display text-4xl md:text-5xl tracking-wide">
+            <h2 className="section-heading-font text-4xl md:text-5xl tracking-wide">
               Story, Vision & <span className="gold-text">Purpose</span>
             </h2>
           </div>

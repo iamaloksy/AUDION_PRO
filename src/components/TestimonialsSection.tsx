@@ -54,7 +54,7 @@ const TestimonialsSection = () => {
           className="text-center mb-16"
         >
           <p className="text-accent uppercase tracking-[0.3em] text-sm mb-3">Reviews</p>
-          <h2 className="font-display text-4xl md:text-6xl tracking-wide text-foreground">
+          <h2 className="section-heading-font text-4xl md:text-6xl tracking-wide text-foreground">
             What People <span className="gold-text">Say</span>
           </h2>
         </motion.div>

@@ -96,8 +96,8 @@ const PortfolioSection = () => {
           className="text-center mb-16"
         >
           <p className="text-accent uppercase tracking-[0.3em] text-sm mb-3">Our Work</p>
-          <h2 className="font-display text-4xl md:text-6xl tracking-wide text-foreground">
-            Have a look <span className="gold-text">at our work</span>
+          <h2 className="section-heading-font text-4xl md:text-6xl tracking-wide text-foreground">
+            PORT <span className="gold-text">FOLIO</span>
           </h2>
         </motion.div>
 
