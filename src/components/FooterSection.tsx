@@ -1,5 +1,4 @@
 import { MapPin, Phone, Mail, Instagram, Facebook, Youtube } from "lucide-react";
-import logo1 from "@/assets/logo1.png";
 
 const FooterSection = () => {
   const quickLinks = [
@@ -19,21 +18,17 @@ const FooterSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-background/30 backdrop-blur-md border border-primary/40 flex items-center justify-center overflow-hidden">
+            <div className="flex items-center gap-3">
+              <div className="w-14 h-14 rounded-2xl bg-background/30 backdrop-blur-md border border-primary/40 flex items-center justify-center overflow-hidden">
                 <img
-                  src={logo1}
-                  alt="AUDION PRO logo"
-                  className="w-8 h-8 object-cover rounded-full"
+                  src="/favicon.ico"
+                  alt="Site icon"
+                  className="w-10 h-10 object-contain"
                   draggable={false}
                 />
               </div>
               <span className="font-display text-2xl gold-text tracking-wider">AUDION PRO</span>
             </div>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Premium DJ services for weddings, corporate events, festivals, and private parties.
-              Elevating every moment with exceptional sound.
-            </p>
           </div>
 
           {/* Contact */}

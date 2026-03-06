@@ -1,17 +1,8 @@
 import { motion } from "framer-motion";
-import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroBg})` }}
-      />
-      {/* Overlay */}
-      <div className="absolute inset-0 hero-overlay" />
-
       {/* Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(20)].map((_, i) => (
@@ -73,8 +64,8 @@ const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto mb-10"
         >
-          Elevating events with electrifying beats, premium sound, and unforgettable energy.
-          Your night, our soundtrack.
+          {/* Elevating events with electrifying beats, premium sound, and unforgettable energy.
+          Your night, our soundtrack. */}
         </motion.p>
 
         <motion.div
