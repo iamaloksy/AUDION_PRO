@@ -21,17 +21,13 @@ const aboutMoments = [
 ];
 
 const MobileStoryCard = ({
-  title,
   text,
   image,
   imageAlt,
-  index,
 }: {
-  title: string;
   text: string;
   image: string;
   imageAlt: string;
-  index: number;
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -66,9 +62,7 @@ const MobileStoryCard = ({
             style={{ opacity: contentOpacity, y: contentY }}
             className="absolute inset-x-0 bottom-0 p-5"
           >
-            <p className="text-accent uppercase tracking-[0.2em] text-[10px] mb-2">Story Part {index + 1}</p>
-            <h3 className="font-display text-2xl tracking-wide mb-2">{title}</h3>
-            <p className="text-muted-foreground text-[13px] leading-relaxed">{text}</p>
+            <p className="text-muted-foreground text-[15px] leading-relaxed">{text}</p>
           </motion.div>
         </article>
       </div>
@@ -98,12 +92,10 @@ const AboutSection = () => {
         <div className="md:hidden space-y-8 max-w-lg mx-auto">
           {aboutMoments.map((moment, i) => (
             <MobileStoryCard
-              key={moment.title}
-              title={moment.title}
+              key={`${moment.imageAlt}-${i}`}
               text={moment.text}
               image={moment.image}
               imageAlt={moment.imageAlt}
-              index={i}
             />
           ))}
         </div>
@@ -125,13 +117,7 @@ const AboutSection = () => {
                       transition={{ duration: 0.65, delay: 0.1 }}
                       className="glass-card p-8"
                     >
-                      <p className="text-accent uppercase tracking-[0.25em] text-xs mb-3">
-                        Story Part {i + 1}
-                      </p>
-                      <h3 className="font-display text-4xl tracking-wide mb-4">
-                        {moment.title}
-                      </h3>
-                      <p className="text-muted-foreground text-base leading-relaxed">
+                      <p className="text-muted-foreground text-lg leading-relaxed">
                         {moment.text}
                       </p>
                     </motion.article>
@@ -175,13 +161,7 @@ const AboutSection = () => {
                       transition={{ duration: 0.65, delay: 0.1 }}
                       className="glass-card p-8"
                     >
-                      <p className="text-accent uppercase tracking-[0.25em] text-xs mb-3">
-                        Story Part {i + 1}
-                      </p>
-                      <h3 className="font-display text-4xl tracking-wide mb-4">
-                        {moment.title}
-                      </h3>
-                      <p className="text-muted-foreground text-base leading-relaxed">
+                      <p className="text-muted-foreground text-lg leading-relaxed">
                         {moment.text}
                       </p>
                     </motion.article>

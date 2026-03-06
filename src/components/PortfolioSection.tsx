@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import portfolio1 from "@/assets/portfolio-1.jpg";
 import portfolio2 from "@/assets/portfolio-2.jpg";
@@ -17,6 +17,12 @@ const images = [
   { src: portfolio6, title: "Sunset Pool Party", category: "Pool Party" },
 ];
 
+const instagramUrl = "https://www.instagram.com/audionpro_/";
+
+const getWrappedIndex = (index: number, length: number) => {
+  return (index + length) % length;
+};
+
 const PortfolioSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
@@ -33,6 +39,15 @@ const PortfolioSection = () => {
   const prev = () => setCurrent((c) => (c - 1 + images.length) % images.length);
   const next = () => setCurrent((c) => (c + 1) % images.length);
 
+  const visibleSlides = [-1, 0, 1].map((offset) => {
+    const idx = getWrappedIndex(current + offset, images.length);
+    return {
+      ...images[idx],
+      idx,
+      offset,
+    };
+  });
+
   return (
     <section id="portfolio" className="section-padding relative">
       <div className="container mx-auto" ref={ref}>
@@ -48,36 +63,54 @@ const PortfolioSection = () => {
           </h2>
         </motion.div>
 
-        <div className="max-w-5xl mx-auto relative">
-          <AnimatePresence mode="wait">
-            <motion.article
-              key={current}
-              initial={{ opacity: 0, x: 60 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -60 }}
-              transition={{ duration: 0.5 }}
-              className="glass-card p-4 md:p-6"
-            >
-              <div className="relative overflow-hidden rounded-2xl">
-                <img
-                  src={images[current].src}
-                  alt={images[current].title}
-                  className="w-full h-[340px] sm:h-[420px] md:h-[520px] object-cover"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/25 to-transparent" />
+        <div className="max-w-6xl mx-auto relative overflow-hidden" onWheel={(e) => (e.deltaY > 0 ? next() : prev())}>
+          <motion.div
+            key={current}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+            className="flex items-start justify-center gap-2 md:gap-4"
+          >
+            {visibleSlides.map((slide) => {
+              const isCenter = slide.offset === 0;
 
-                <div className="absolute left-0 right-0 bottom-0 p-6 md:p-8 text-center">
-                  <p className="font-display text-3xl md:text-4xl gold-text tracking-wide">
-                    {images[current].title}
-                  </p>
-                  <p className="text-muted-foreground text-sm uppercase tracking-[0.2em] mt-2">
-                    {images[current].category}
-                  </p>
-                </div>
-              </div>
-            </motion.article>
-          </AnimatePresence>
+              return (
+                <a
+                  key={`${slide.title}-${slide.idx}`}
+                  href={instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`block shrink-0 ${isCenter ? "basis-[76%] md:basis-[70%]" : "basis-[12%] md:basis-[15%]"}`}
+                >
+                  <motion.article
+                    whileHover={{ y: -6 }}
+                    transition={{ duration: 0.2 }}
+                    className={`relative overflow-hidden rounded-2xl glass-card cursor-pointer transition-all duration-300 ${
+                      isCenter
+                        ? "scale-100 z-20 border gold-border shadow-2xl"
+                        : "scale-95 opacity-70 hover:opacity-90"
+                    }`}
+                  >
+                    <img
+                      src={slide.src}
+                      alt={slide.title}
+                      className={`w-full object-cover ${isCenter ? "h-[280px] sm:h-[360px] md:h-[460px]" : "h-[240px] sm:h-[300px] md:h-[400px]"}`}
+                      loading="lazy"
+                    />
+                  </motion.article>
+
+                  <div className="pt-3 text-center">
+                    <p className={`font-display tracking-wide ${isCenter ? "text-lg md:text-2xl gold-text" : "text-xs md:text-sm text-foreground/85"}`}>
+                      {slide.title}
+                    </p>
+                    <p className={`uppercase mt-1 ${isCenter ? "text-[10px] md:text-xs text-accent tracking-[0.2em]" : "text-[9px] md:text-[10px] text-muted-foreground tracking-[0.1em]"}`}>
+                      {slide.category}
+                    </p>
+                  </div>
+                </a>
+              );
+            })}
+          </motion.div>
 
           <div className="flex justify-center gap-4 mt-8">
             <button
