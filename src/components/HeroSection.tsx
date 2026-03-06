@@ -48,43 +48,45 @@ const HeroSection = () => {
       {/* Content */}
       <br />
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        <motion.img
-          key="audion-pro"
-          initial={{ opacity: 0, y: 12, scale: 0.92 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.45 }}
-          src={logo1}
-          alt="AUDION PRO logo"
-          className="mx-auto mb-4 object-contain w-64 h-64 md:w-80 md:h-80 [filter:drop-shadow(0_0_2px_rgba(255,255,255,0.95))_drop-shadow(0_0_10px_rgba(255,255,255,0.75))]"
-        />
+        <div className="-mt-8 md:-mt-12">
+          <motion.img
+            key="audion-pro"
+            initial={{ opacity: 0, y: 12, scale: 0.92 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.45 }}
+            src={logo1}
+            alt="AUDION PRO logo"
+            className="mx-auto mb-4 object-contain w-64 h-64 md:w-80 md:h-80 [filter:drop-shadow(0_0_2px_rgba(255,255,255,0.95))_drop-shadow(0_0_10px_rgba(255,255,255,0.75))]"
+          />
 
-        <AnimatePresence>
-          {showAudionPro && (
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.35 }}
-              className="company-name-font text-4xl md:text-6xl gold-text mb-4"
-            >
-              AUDION PRO
-            </motion.p>
-          )}
-        </AnimatePresence>
+          <AnimatePresence>
+            {showAudionPro && (
+              <motion.p
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.35 }}
+                className="company-name-font text-4xl md:text-6xl gold-text mb-4"
+              >
+                AUDION PRO
+              </motion.p>
+            )}
+          </AnimatePresence>
 
-        <AnimatePresence>
-          {showAudionPro && (
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.6 }}
-              className="text-accent uppercase tracking-[0.3em] text-sm md:text-base font-medium mb-4"
-            >
-              EXPERIENCE EVENTS ELEVATED
-            </motion.p>
-          )}
-        </AnimatePresence>
+          <AnimatePresence>
+            {showAudionPro && (
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.6 }}
+                className="text-accent uppercase tracking-[0.3em] text-sm md:text-base font-medium mb-4"
+              >
+                EXPERIENCE EVENTS ELEVATED
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </div>
 
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
