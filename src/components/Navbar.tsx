@@ -10,8 +10,9 @@ const sectionLinks = [
 
 const pageLinks = [
   { label: "Home", to: "/" },
-  { label: "Our Journey", to: "/journey" },
   { label: "Our Services", to: "/services" },
+  { label: "Our Journey", to: "/journey" },
+  
  
 ];
 

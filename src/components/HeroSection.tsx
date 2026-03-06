@@ -48,7 +48,7 @@ const HeroSection = () => {
       {/* Content */}
       <br />
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        <div className="-mt-8 md:-mt-12">
+        <div className="-mt-16 md:-mt-24">
           <motion.img
             key="audion-pro"
             initial={{ opacity: 0, y: 12, scale: 0.92 }}
@@ -56,9 +56,9 @@ const HeroSection = () => {
             transition={{ duration: 0.45 }}
             src={logo1}
             alt="AUDION PRO logo"
-            className="mx-auto mb-4 object-contain w-64 h-64 md:w-80 md:h-80 [filter:drop-shadow(0_0_2px_rgba(255,255,255,0.95))_drop-shadow(0_0_10px_rgba(255,255,255,0.75))]"
+            className="mx-auto -mt-8 md:-mt-12 mb-4 object-contain w-80 h-80 md:w-96 md:h-96 [filter:drop-shadow(0_0_2px_rgba(255,255,255,0.95))_drop-shadow(0_0_10px_rgba(255,255,255,0.75))]"
           />
-
+<br /><br /><br />
           <AnimatePresence>
             {showAudionPro && (
               <motion.p
@@ -125,10 +125,10 @@ const HeroSection = () => {
                 Book Now
               </a>
               <a
-                href="#portfolio"
+                href="/journey"
                 className="px-10 py-4 rounded-full border-2 gold-border text-accent font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:scale-105 hover:gold-glow"
               >
-                View Portfolio
+                View Evolution
               </a>
             </motion.div>
           )}
@@ -136,7 +136,7 @@ const HeroSection = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div
+      {/* <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 md:hidden pointer-events-none"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
@@ -144,7 +144,7 @@ const HeroSection = () => {
         <div className="w-6 h-10 rounded-full border-2 gold-border flex justify-center pt-2">
           <div className="w-1 h-2 rounded-full bg-accent" />
         </div>
-      </motion.div>
+      </motion.div> */}
     </section>
   );
 };
